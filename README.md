@@ -8,7 +8,7 @@
 ## Getting Started
 1. Clone this repo:
 ```sh
-git clone https://cgv.cs.nthu.edu.tw:8889/3dgs_indoor_reconstruction/occlusionawaregs.git --recursive
+git clone https://github.com/mush881212/SAOGS.git --recursive
 cd occlusionawaregs
 ```
 2. Install [conda](https://www.anaconda.com/).
