@@ -1,4 +1,4 @@
-name: gaussian_splatting_ours
+name: occlusionawaregs
 channels:
   - pytorch
   - conda-forge
