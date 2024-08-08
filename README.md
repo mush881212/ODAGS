@@ -9,7 +9,7 @@
 1. Clone this repo:
 ```sh
 git clone https://github.com/mush881212/SAOGS.git --recursive
-cd occlusionawaregs
+cd SAOGS
 ```
 2. Install [conda](https://www.anaconda.com/).
 3. Create conda environment
