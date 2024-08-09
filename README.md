@@ -8,8 +8,8 @@
 ## Getting Started
 1. Clone this repo:
 ```sh
-git clone https://github.com/mush881212/SAOGS.git --recursive
-cd SAOGS
+git clone https://github.com/mush881212/ODAGS.git --recursive
+cd ODAGS
 ```
 2. Install [conda](https://www.anaconda.com/).
 3. Create conda environment
@@ -18,7 +18,7 @@ conda env create --file environment.yml
 ```
 4. Switch to the conda environment
 ```sh
-conda activate occlusionawaregs
+conda activate odags
 ```
 ## Dataset
 1. Download on [CGV Nas](https://cgv.cs.nthu.edu.tw:5001/). The full path of the training data is "GS_Densification/Datasets".
