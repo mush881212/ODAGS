@@ -1,4 +1,4 @@
-name: occlusionawaregs
+name: odags
 channels:
   - pytorch
   - conda-forge
