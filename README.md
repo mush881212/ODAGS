@@ -54,9 +54,9 @@ python metrics.py -m path/to/output_folder # Compute error metrics on renderings
 Flag to skip rendering the training set.
 #### --model_path / -m
 Path to the trained model directory you want to create renderings for.
-
-You can also reference the [run.sh](run.sh) script to see more commands.
-
+  
+  
+You can also refer to the [run.sh](run.sh) script for additional commands.
 For more flexible usage, please refer to [the file](arguments/__init__.py) to see the arguments.
 
 ## Citation
