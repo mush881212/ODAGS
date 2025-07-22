@@ -26,11 +26,13 @@ conda env create --file environment.yml
 ```sh
 conda activate odags
 ```
+## Dataset
+We evaluate our method on the [ScanNet++(https://kaldir.vc.in.tum.de/scannetpp/)] dataset and a manually rendered version of the [Replica(https://github.com/facebookresearch/Replica-Dataset)] dataset. For the data split, we select every eighth image from the original training set (specified in transforms_train.json) to construct the test set, ensuring higher image quality. Please refer to [reference/link] for additional details.
 
 ## Training and Evaluation
 ### Training
 ```sh
-python train.py -s path/to/data --iterations 30000 --data_device cpu --model_path path/to/output_folder --eval -r 1
+python train.py -s path/to/data_root --iterations 30000 --data_device cpu --model_path path/to/output_folder --eval -r 1
 ```
 #### --iterations
 Number of total iterations to train for, 30_000 by default.
@@ -39,7 +41,7 @@ Specifies where to put the source image data, ```cuda``` by default, recommended
 #### --model_path / -m
 Path to the trained model directory.
 #### --eval
-Add this flag to use a MipNeRF360-style training/test split for evaluation.
+Enable this flag to split every 8th image for evaluation; otherwise, all images will be used for training.
 #### --resolution / -r
 Specifies resolution of the loaded images before training. If provided 1, 2, 4 or 8, uses original, 1/2, 1/4 or 1/8 resolution, respectively. For all other values, rescales the width to the given number while maintaining image aspect.
 
