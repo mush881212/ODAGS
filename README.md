@@ -12,7 +12,7 @@ In this work, we aim to address the quality degradation issues of indoor scene r
 * Python3
 
 ## Getting Started
-1. Clone this repo:
+1. Clone this repo
 ```sh
 git clone https://github.com/mush881212/ODAGS.git --recursive
 cd ODAGS
