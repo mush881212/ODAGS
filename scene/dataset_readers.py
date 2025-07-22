@@ -37,8 +37,8 @@ def getNerfppNorm(cam_info):
         cam_centers = np.hstack(cam_centers) # (N, 3)
         avg_cam_center = np.mean(cam_centers, axis=1, keepdims=True)
         center = avg_cam_center
-        dist = np.linalg.norm(cam_centers - center, axis=0, keepdims=True) #計算所有相機到相機中心平均的距離
-        diagonal = np.max(dist) #距離最大值
+        dist = np.linalg.norm(cam_centers - center, axis=0, keepdims=True) 
+        diagonal = np.max(dist) 
         return center.flatten(), diagonal
 
     cam_centers = []
@@ -89,8 +89,8 @@ def readColmapCameras(cam_extrinsics, cam_intrinsics, images_folder):
         image = Image.open(image_path)
         cam_info = CameraInfo(uid=uid, R=R, T=T, FovY=FovY, FovX=FovX, image=image, depth=None,
                               image_path=image_path, image_name=image_name, width=width, height=height)
-        if idx % 2 == 0:
-            cam_infos.append(cam_info)
+        
+        cam_infos.append(cam_info)
     sys.stdout.write('\n')
     return cam_infos
 
@@ -177,9 +177,7 @@ def readCamerasFromTransforms(path, transformsfile, white_background, extension=
 
         frames = contents["frames"]
         for idx, frame in enumerate(frames):
-            # [0603] switch scannt++ / Replica
-            if idx % 2 != 0:
-                continue
+            
             cam_name = os.path.join(path, "images", frame["file_path"])
 
             # NeRF 'transform_matrix' is a camera-to-world transform
