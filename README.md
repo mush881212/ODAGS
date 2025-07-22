@@ -27,7 +27,7 @@ conda env create --file environment.yml
 conda activate odags
 ```
 ## Dataset
-We evaluate our method on the [ScanNet++(https://kaldir.vc.in.tum.de/scannetpp/)] dataset and a manually rendered version of the [Replica(https://github.com/facebookresearch/Replica-Dataset)] dataset. For the data split, we select every eighth image from the original training set (specified in transforms_train.json) to construct the test set, ensuring higher image quality. Please refer to [relevant code in scene/dataset_readers.py](scene/dataset_readers.py#L225) for additional details.
+We evaluate our method on the [ScanNet++](https://kaldir.vc.in.tum.de/scannetpp/) dataset and a manually rendered version of the [Replica](https://github.com/facebookresearch/Replica-Dataset) dataset. For the data split, we select every eighth image from the original training set (specified in transforms_train.json) to construct the test set, ensuring higher image quality. Please refer to [relevant code in scene/dataset_readers.py](scene/dataset_readers.py#L225) for additional details.
 
 ## Training and Evaluation
 ### Training
