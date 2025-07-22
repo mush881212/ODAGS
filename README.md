@@ -56,7 +56,7 @@ Flag to skip rendering the training set.
 Path to the trained model directory you want to create renderings for.
   
   
-You can also refer to the [run.sh](run.sh) script for additional commands.
+You can also refer to the [run.sh](run.sh) script for additional commands.  
 For more flexible usage, please refer to [the file](arguments/__init__.py) to see the arguments.
 
 ## Citation
