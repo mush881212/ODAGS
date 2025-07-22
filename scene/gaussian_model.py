@@ -456,35 +456,4 @@ class GaussianModel:
         self.denom[occlusion_mask] += 1
         return grad, occlusion_mask
        
-    def back_proj(self, iteration, opacity=0.1, path=None):
-        original_point_cloud = self.get_xyz
-        fused_shape = self.back_proj_points.shape[0]
-        if fused_shape == 0:
-            print(f"No splat to add")
-            return
-        all_point_cloud = torch.concat([self.back_proj_points, original_point_cloud], dim=0)
-        all_dist2 = torch.clamp_min(distCUDA2(all_point_cloud), 0.0000001)
-        dist2 = all_dist2[:fused_shape]
-        scales = torch.log(torch.sqrt(dist2))[...,None].repeat(1, 3)
-        rots = torch.zeros((self.back_proj_points.shape[0], 4), device="cuda")
-        rots[:, 0] = 1
-
-        opacities = inverse_sigmoid(opacity * torch.ones((self.back_proj_points.shape[0], 1), dtype=torch.float, device="cuda"))
-        print(f"adding fused point {self.back_proj_points.shape} + {original_point_cloud.shape} -> {all_point_cloud.shape}")
-        if path:
-            os.makedirs(os.path.join(path, "ply"), exist_ok=True)
-            np.save(os.path.join(path, "ply", f"fused_point_cloud_{iteration}.npy"), self.back_proj_points.cpu().numpy())
-
-        new_xyz = nn.Parameter(self.back_proj_points.requires_grad_(True))
-        new_features_dc = nn.Parameter(self.back_proj_color[:,:,0:1].transpose(1, 2).contiguous().requires_grad_(True))
-        new_features_rest = nn.Parameter(self.back_proj_color[:,:,1:].transpose(1, 2).contiguous().requires_grad_(True))
-        new_scaling = nn.Parameter(scales.requires_grad_(True))
-        new_rotation = nn.Parameter(rots.requires_grad_(True))
-        new_opacity = nn.Parameter(opacities.requires_grad_(True))
-
-        #update gaussians
-        self.densification_postfix(new_xyz, new_features_dc, new_features_rest, new_opacity, new_scaling, new_rotation)
-        self.back_proj_points = torch.empty(0).cuda()
-        self.back_proj_color = torch.empty(0).cuda()
-        torch.cuda.empty_cache()
         
