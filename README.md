@@ -65,7 +65,8 @@ If you find our code/models useful, please consider citing our paper:
 @inproceedings{10.1145/3681758.3697997,
 author = {Lee, Chai-Rong and Yen, Ting-Yu and Hsiao, Kai-Wen and Hung, Shih-Hsuan and Hsu, Sheng-Chi and Hu, Min-Chun and Yao, Chih-Yuan and Chu, Hung-Kuo},
 title = {ODA-GS: Occlusion- and Distortion-aware Gaussian Splatting for Indoor Scene Reconstruction},
-year = {2024}
+year = {2024},
+booktitle = {SIGGRAPH Asia 2024 Technical Communications}
 }
 ```
 
