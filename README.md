@@ -1,4 +1,4 @@
-# [Siggraph Asia 2024] ODA-GS: Occlusion- and Distortion-aware Gaussian Splatting for Indoor Scene Reconstruction
+# [Siggraph Asia 2024 TC] ODA-GS: Occlusion- and Distortion-aware Gaussian Splatting for Indoor Scene Reconstruction
 
 ### [[Paper](https://dl.acm.org/doi/abs/10.1145/3681758.3697997)]
 
