@@ -1,14 +1,3 @@
-#
-# Copyright (C) 2023, Inria
-# GRAPHDECO research group, https://team.inria.fr/graphdeco
-# All rights reserved.
-#
-# This software is free for non-commercial, research and evaluation use 
-# under the terms of the LICENSE.md file.
-#
-# For inquiries contact  george.drettakis@inria.fr
-#
-
 import torch
 import numpy as np
 from utils.general_utils import inverse_sigmoid, get_expon_lr_func, build_rotation
@@ -425,10 +414,10 @@ class GaussianModel:
         scale_factor_y = (max_scale/scales[:, 1])
         scale_factor_z = (max_scale/scales[:, 2])
         
-        # plate-like pruning
+        # Prune super large gs
         large_max_scale = max_scale > (10 * needle_thres*extent)
         needle_mask = large_max_scale
-        # needle-like pruning
+        # Prune needle-like gs
         is_needle_x = (scale_factor_x > 30) | (scale_factor_x == 1.0)
         is_needle_y = (scale_factor_y > 30) | (scale_factor_y == 1.0)
         is_needle_z = (scale_factor_z > 30) | (scale_factor_z == 1.0)
