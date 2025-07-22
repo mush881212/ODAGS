@@ -1,14 +1,3 @@
-#
-# Copyright (C) 2023, Inria
-# GRAPHDECO research group, https://team.inria.fr/graphdeco
-# All rights reserved.
-#
-# This software is free for non-commercial, research and evaluation use 
-# under the terms of the LICENSE.md file.
-#
-# For inquiries contact  george.drettakis@inria.fr
-#
-
 import os
 import torch
 import random
@@ -133,11 +122,11 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 # Keep track of max radii in image-space for pruning
                 gaussians.max_radii2D[visibility_filter] = torch.max(gaussians.max_radii2D[visibility_filter], radii[visibility_filter])
                 
-                # [0401] add manual depth and point_xy computation
+                #  Compute depth and point's xy coordinate
                 depth_manual = getdepth(gaussians.get_xyz, viewpoint_cam.world_view_transform)
                 point_xy_manual = getpointxy(gaussians.get_xyz, viewpoint_cam.full_proj_transform, viewpoint_cam.image_width, viewpoint_cam.image_height)
                 
-                # [0317] add occlusion
+                # Compute occlusion-aware gradient accumulation
                 if iteration > opt.start_occlusion_test:
                     grad, occlusion_mask = gaussians.add_densification_stats_margin(viewspace_point_tensor, visibility_filter, depth_manual, point_xy_manual, render_depth.squeeze(0), 0.15*scene.cameras_extent)
                 else:
@@ -159,11 +148,11 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 if iteration % opt.opacity_reset_interval == 0 or (dataset.white_background and iteration == opt.densify_from_iter):
                     gaussians.reset_opacity()
             
-            # [0401] add post-pruning
+            # Post-pruning for low opacity gs
             if (iteration > opt.prune_opacity_start) & (iteration % opt.prune_opacity_interval == 0):
                 gaussians.prune_opacity(0.005)
             
-            # [0607] add needle_prune
+            # Post-pruning for distorted gs
             if (iteration > opt.prune_needle_start) & (iteration % opt.prune_needle_interval == 0):
                 if needle_thres == None: # set needle threshold at the first time we prune needle (default: at 15000-th iteration)
                     scales = gaussians.get_scaling
