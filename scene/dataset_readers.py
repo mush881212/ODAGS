@@ -1,14 +1,3 @@
-#
-# Copyright (C) 2023, Inria
-# GRAPHDECO research group, https://team.inria.fr/graphdeco
-# All rights reserved.
-#
-# This software is free for non-commercial, research and evaluation use 
-# under the terms of the LICENSE.md file.
-#
-# For inquiries contact  george.drettakis@inria.fr
-#
-
 import os
 import sys
 from PIL import Image
@@ -233,18 +222,10 @@ def readNerfSyntheticInfo(path, white_background, eval, extension=".png"):
 
     print("Reading Training Transforms")
     train_cam_infos, train_trans_list = readCamerasFromTransforms(path, "transforms_train.json", white_background, extension)
-    # print("Reading Test Transforms")
-    # test_cam_info, test_trans_list = readCamerasFromTransforms(path, "transforms_test.json", white_background, extension)
     
-    # [0603] switch for scannet / replica dataset
+    # load in dataset
     train_cam_info = [c for idx, c in enumerate(train_cam_infos) if idx % 8 != 0]
-    # # print("train")
-    # # for i in train_cam_info:
-    # #     print(i.image_name)
     test_cam_info = [c for idx, c in enumerate(train_cam_infos) if idx % 8 == 0]
-    # # print("test")
-    # # for i in test_cam_info:
-    # #     print(i.image_name)
     if not eval:
         train_cam_info.extend(test_cam_info)
         test_cam_info = []
