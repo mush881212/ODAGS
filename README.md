@@ -1,7 +1,8 @@
 # [Siggraph Asia 2024] ODA-GS: Occlusion- and Distortion-aware Gaussian Splatting for Indoor Scene Reconstruction
 
-[Paper](https://dl.acm.org/doi/abs/10.1145/3681758.3697997)
+### [[Paper](https://dl.acm.org/doi/abs/10.1145/3681758.3697997)]
 
+<img width="2662" height="831" alt="teaser_6" src="https://github.com/user-attachments/assets/9c9de5d1-5e2c-45be-9f95-72bb186a2259" />
 
 In this work, we aim to address the quality degradation issues of indoor scene reconstruction using 3D Gaussian Splatting (3DGS). Existing methods enhance reconstruction quality by exploiting learned geometric priors like Signed Distance Functions (SDF), but these come with significant computational costs. We analyze the traditional 3DGS training process and identify key factors contributing to quality degradation: over-reconstruction and gradient dilution during the densification stage, and the occurrence of distorted/redundant Gaussians during the post-optimization stage. To tackle these issues, we introduce ODA-GS, a novel framework that modifies 3DGS with tailored modules. During densification, we employ occlusion-aware gradient accumulation to prevent gradient dilution and use homo-directional gradients to mitigate over-reconstruction. In the post-optimization stage, we introduce post-pruning to eliminate distorted and redundant Gaussians, thereby enhancing visual quality and reducing computational overhead. Tested on the ScanNet++ and Replica datasets, ODA-GS outperforms several baselines both qualitatively and quantitatively.
 
@@ -27,15 +28,30 @@ conda activate odags
 ```
 
 ## Training and Evaluation
-1. Simple example:
+### Training
 ```sh
-python train.py -s data_path --iterations 30000 --data_device cpu --model_path path/to/output_folder --eval -r 1
-python render.py -m path/to/output_folder --skip_train
-python metrics.py -m path/to/output_folder
+python train.py -s path/to/data --iterations 30000 --data_device cpu --model_path path/to/output_folder --eval -r 1
 ```
-You can also refence the [run.sh](run.sh) script to see more commands.
+--iterations
+Number of total iterations to train for, 30_000 by default.
+--eval
+Add this flag to use a MipNeRF360-style training/test split for evaluation.
+--resolution / -r
+Specifies resolution of the loaded images before training. If provided 1, 2, 4 or 8, uses original, 1/2, 1/4 or 1/8 resolution, respectively. For all other values, rescales the width to the given number while maintaining image aspect.
 
-2. For more flexible usage, please refer to [the file](arguments/__init__.py) to see the arguments.
+### Evaluation
+```sh
+python render.py -m path/to/output_folder --skip_train # Generate renderings
+python metrics.py -m path/to/output_folder # Compute error metrics on renderings
+```
+--skip_train
+Flag to skip rendering the training set.
+--model_path / -m
+Path to the trained model directory you want to create renderings for.
+
+You can also reference the [run.sh](run.sh) script to see more commands.
+
+For more flexible usage, please refer to [the file](arguments/__init__.py) to see the arguments.
 
 ## Citation
 If you find our code/models useful, please consider citing our paper:
