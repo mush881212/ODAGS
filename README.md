@@ -32,11 +32,15 @@ conda activate odags
 ```sh
 python train.py -s path/to/data --iterations 30000 --data_device cpu --model_path path/to/output_folder --eval -r 1
 ```
---iterations
+#### --iterations
 Number of total iterations to train for, 30_000 by default.
---eval
+#### --data_device
+Specifies where to put the source image data, ```cuda``` by default, recommended to use ```cpu``` if training on large/high-resolution dataset, will reduce VRAM consumption, but slightly slow down training.
+#### --model_path / -m
+Path to the trained model directory.
+#### --eval
 Add this flag to use a MipNeRF360-style training/test split for evaluation.
---resolution / -r
+#### --resolution / -r
 Specifies resolution of the loaded images before training. If provided 1, 2, 4 or 8, uses original, 1/2, 1/4 or 1/8 resolution, respectively. For all other values, rescales the width to the given number while maintaining image aspect.
 
 ### Evaluation
@@ -44,9 +48,9 @@ Specifies resolution of the loaded images before training. If provided 1, 2, 4 o
 python render.py -m path/to/output_folder --skip_train # Generate renderings
 python metrics.py -m path/to/output_folder # Compute error metrics on renderings
 ```
---skip_train
+#### --skip_train
 Flag to skip rendering the training set.
---model_path / -m
+#### --model_path / -m
 Path to the trained model directory you want to create renderings for.
 
 You can also reference the [run.sh](run.sh) script to see more commands.
